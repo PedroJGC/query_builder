@@ -1,9 +1,16 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from "express"
+import { knex } from "./database/knex"
 
-const app = express();
+const app = express()
+// Middleware para analisar o corpo das requisições JSON
+app.use(express.json())
 
-app.get("/", async (request: Request, response: Response) => {
-  response.json({ message: "Hello World" });
-});
+app.post("/courses", async (request: Request, response: Response) => {
+  const { name } = request.body
 
-app.listen(3333, () => console.log(`Server running on port 3333`));
+  await knex("courses").insert({ name })
+
+  response.status(201).json()
+})
+
+app.listen(3333, () => console.log(`Server running on port 3333`))
