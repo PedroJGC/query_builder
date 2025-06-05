@@ -21,4 +21,8 @@ app.get("/courses", async (request: Request, response: Response) => {
   response.json(courses)
 })
 
+app.put("/courses", async (request: Request, response: Response) => {
+  return response.json()
+})
+
 app.listen(3333, () => console.log(`Server running on port 3333`))
