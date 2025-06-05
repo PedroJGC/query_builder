@@ -21,8 +21,13 @@ app.get("/courses", async (request: Request, response: Response) => {
   response.json(courses)
 })
 
-app.put("/courses", async (request: Request, response: Response) => {
-  return response.json()
+app.put("/courses/:id", async (request: Request, response: Response) => {
+  const { id } = request.params
+  const { name } = request.body
+
+  await knex("courses").update({ name }).where({ id })
+
+  response.json()
 })
 
 app.listen(3333, () => console.log(`Server running on port 3333`))
