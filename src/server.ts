@@ -16,7 +16,7 @@ app.post("/courses", async (request: Request, response: Response) => {
 
 app.get("/courses", async (request: Request, response: Response) => {
   // const courses = await knex.raw("SELECT * FROM courses")
-  const courses = await knex("courses").select().orderBy("name")
+  const courses = await knex("courses").select()
 
   response.json(courses)
 })
