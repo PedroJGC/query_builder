@@ -52,4 +52,20 @@ app.get("/modules", async (request: Request, response: Response) => {
   response.json(modules)
 })
 
+app.get(
+  "/courses/:id/modules",
+  async (request: Request, response: Response) => {
+    const courses = await knex("courses")
+      .select(
+        "course_id AS course_id",
+        "course_modules.id AS module_id",
+        "course_modules.name AS module",
+        "courses.name AS course"
+      )
+      .join("course_modules", "courses.id", "course_modules.course_id")
+
+    response.json(courses)
+  }
+)
+
 app.listen(3333, () => console.log(`Server running on port 3333`))
